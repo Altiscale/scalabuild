@@ -13,10 +13,15 @@ Version: %{scala_version}
 Release: %{altiscale_release_ver}.%{build_release}%{?dist}
 License: http://www.scala-lang.org/license.html
 # Packager: %{packager}
+Group: Development/Tools
 Source: %{_sourcedir}/%{build_service_name}-%{scala_version}.tar.gz
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%{build_service_name}
 Provides: scala
+%if 0%{?rhel}
+Requires: jre7
+%else
 Requires: jre >= 1.7
+%endif
 # Apply all patches to fix CLASSPATH and java lib issues
 # Patch1: %{_sourcedir}/patch.scala
 
@@ -75,6 +80,8 @@ ln -sf %{install_scala_dest} /opt/%{build_service_name}
 rm /opt/%{build_service_name}
 
 %changelog
+* Thu May 15 2014 Andrew Lee 20140515
+- Added Group tag Development/Tools
 * Wed May 14 2014 Andrew Lee 20140514
 - Initial Creation of scala spec to build scala 2.10.3 RPM
 
