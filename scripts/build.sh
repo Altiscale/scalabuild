@@ -9,9 +9,18 @@ mock_cfg="$curr_dir/altiscale-scala-centos-6-x86_64.cfg"
 mock_cfg_name=$(basename "$mock_cfg")
 mock_cfg_runtime=`echo $mock_cfg_name | sed "s/.cfg/.runtime.cfg/"`
 scala_tgz="$curr_dir/scala.tgz"
+scala_md5_file="$curr_dir/scala.md5"
+scala_md5=""
 
 if [ -f "$curr_dir/setup_env.sh" ]; then
   source "$curr_dir/setup_env.sh"
+fi
+
+if [ -f "$scala_md5_file" ]; then
+  scala_md5=$(cat "$scala_md5_file" | grep -v "^#")
+  echo "ok - scala md5 showing $scala_md5"
+else
+  echo "warn - $scala_md5_file not found, we will re-download from the source to build scala-${SCALA_VERSION}"
 fi
 
 if [ "x${WORKSPACE}" = "x" ] ; then
@@ -38,10 +47,10 @@ if [ "x${chk_scala_rpm}" = "x" -o ! -d "${SCALA_HOME}" ] ; then
   if [ -f "$scala_tgz" ] ; then
     echo "ok - found existing $scala_tgz, verifying integrity."
     fhash=$(md5sum "$scala_tgz" | cut -d" " -f1)
-    if [ "x${fhash}" = "x7665a125ceb38c1ba32cbb9acba9070f" ] ; then
-      echo "ok - md5 hash  matched, file is the same, no need to re-download again, use current one on disk"
+    if [ "x${fhash}" = "x${scala_md5}" ] ; then
+      echo "ok - md5 hash $fhash matched, file is the same, no need to re-download again, use current one on disk"
     else
-      echo "warn - previous file hash $fhash <> 7665a125ceb38c1ba32cbb9acba9070f , does not match , deleting and re-download again"
+      echo "warn - previous file hash $fhash <> $scala_md5 , does not match , deleting and re-download again"
       echo "ok - deleting previous stale/corrupted file $scala_tgz"
       stat "$scala_tgz"
       rm -f "$scala_tgz"
