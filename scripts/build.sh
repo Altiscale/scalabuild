@@ -113,12 +113,12 @@ mock -vvv --configdir=$curr_dir -r altiscale-scala-centos-6-x86_64.runtime --res
 
 if [ $? -ne "0" ] ; then
   echo "fail - mock RPM build failed"
-  mock --configdir=$curr_dir -r altiscale-scala-centos-6-x86_64.runtime --clean
+  # mock --configdir=$curr_dir -r altiscale-scala-centos-6-x86_64.runtime --clean
   mock --configdir=$curr_dir -r altiscale-scala-centos-6-x86_64.runtime --scrub=all
   exit -99
 fi
 
-mock --configdir=$curr_dir -r altiscale-scala-centos-6-x86_64.runtime --clean
+# mock --configdir=$curr_dir -r altiscale-scala-centos-6-x86_64.runtime --clean
 mock --configdir=$curr_dir -r altiscale-scala-centos-6-x86_64.runtime --scrub=all
 
 echo "ok - build Completed successfully!"
