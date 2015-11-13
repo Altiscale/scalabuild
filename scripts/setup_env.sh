@@ -27,10 +27,10 @@ export PATH=$PATH:$M2_HOME/bin:$SCALA_HOME/bin:$ANT_HOME/bin:$JAVA_HOME/bin
 # Define defau;t spark uid:gid and build version
 # WARNING: the SCALA_VERSION branch name does not align with the Git branch name branch-0.9
 if [ "x${SCALA_VERSION}" = "x" ] ; then
-  export SCALA_VERSION=2.10.4
+  export SCALA_VERSION=2.10.5
 fi
 if [ "x${ALTISCALE_RELEASE}" = "x" ] ; then
-  export ALTISCALE_RELEASE=2.0.0
+  export ALTISCALE_RELEASE=4.0.0
 else
   export ALTISCALE_RELEASE
 fi

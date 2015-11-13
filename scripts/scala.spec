@@ -67,7 +67,7 @@ echo "test install scala label scala_folder_name = %{scala_folder_name}"
 %{__mkdir} -p %{buildroot}%{install_scala_dest}/
 cp -rp %{_builddir}/%{scala_folder_name} %{buildroot}%{install_scala_dest}/
 
-# Install to BUILDROOT/opt/scala-2.10.4/bin/
+# Install to BUILDROOT/opt/scala-2.10.5/bin/
 install -d %{buildroot}%{install_scala_dest}/%{scala_folder_name}/bin
 for prog in scaladoc fsc scala scalac scalap; do
         install -p -m 755 bin/$prog %{buildroot}%{install_scala_dest}/%{scala_folder_name}/bin/
@@ -105,6 +105,8 @@ rm -f %{_bindir}/scalac
 rm -f %{_bindir}/scalap
 
 %changelog
+* Fri Nov 13 2015 Andrew Lee 20151113
+- Added version Scala 2.10.5
 * Mon May 19 2014 Andrew Lee 20140519
 - Added version Scala 2.10.4
 * Thu May 15 2014 Andrew Lee 20140515
