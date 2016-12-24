@@ -79,8 +79,6 @@ install -p -m 644 %{_builddir}/%{scala_folder_name}/man/man1/* %{buildroot}%{_ma
 %clean
 echo "ok - cleaning up temporary files, deleting %{buildroot}%{install_scala_dest}/%{scala_folder_name}"
 rm -rf %{buildroot}%{install_scala_dest}/%{scala_folder_name}
-echo "ok - removing symbolic link %{install_scala_dest}/%{scala_folder_name}"
-rm -f %{buildroot}%{install_scala_dest}/%{build_service_name}
 
 %files
 %defattr(0755,root,root,0755)
@@ -89,20 +87,18 @@ rm -f %{buildroot}%{install_scala_dest}/%{build_service_name}
 %{_mandir}/man1/*
 
 %post
-ln -sf %{install_scala_dest}/%{scala_folder_name} /opt/%{build_service_name}
-ln -sf %{install_scala_dest}/%{scala_folder_name}/bin/scala %{_bindir}/scala
-ln -sf %{install_scala_dest}/%{scala_folder_name}/bin/scaladoc %{_bindir}/scaladoc
-ln -sf %{install_scala_dest}/%{scala_folder_name}/bin/fsc %{_bindir}/fsc
-ln -sf %{install_scala_dest}/%{scala_folder_name}/bin/scalac %{_bindir}/scalac
-ln -sf %{install_scala_dest}/%{scala_folder_name}/bin/scalap %{_bindir}/scalap
+ln -sf %{install_scala_dest}/%{scala_folder_name}/bin/scala %{_bindir}/scala-%{scala_version}
+ln -sf %{install_scala_dest}/%{scala_folder_name}/bin/scaladoc %{_bindir}/scaladoc-%{scala_version}
+ln -sf %{install_scala_dest}/%{scala_folder_name}/bin/fsc %{_bindir}/fsc-%{scala_version}
+ln -sf %{install_scala_dest}/%{scala_folder_name}/bin/scalac %{_bindir}/scalac-%{scala_version}
+ln -sf %{install_scala_dest}/%{scala_folder_name}/bin/scalap %{_bindir}/scalap-%{scala_version}
 
 %postun
-rm -f /opt/%{build_service_name}
-rm -f %{_bindir}/scala
-rm -f %{_bindir}/scaladoc
-rm -f %{_bindir}/fsc
-rm -f %{_bindir}/scalac
-rm -f %{_bindir}/scalap
+rm -f %{_bindir}/scala-%{scala_version}
+rm -f %{_bindir}/scaladoc-%{scala_version}
+rm -f %{_bindir}/fsc-%{scala_version}
+rm -f %{_bindir}/scalac-%{scala_version}
+rm -f %{_bindir}/scalap-%{scala_version}
 
 %changelog
 * Thu May 5 2016 Andrew Lee 20160505
